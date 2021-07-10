@@ -1,0 +1,9 @@
+<launch>
+    <include file="$(find eurobot)/launch/localization/ekf.launch"/>
+    
+    <!-- use for bag -->
+    <node name="scan_rosbag" pkg="lidar_localization" type="scan_rosbag"/>
+    <remap from="scan" to="scan_bag"/>
+    
+    <include file="$(find lidar_localization)/launch/lidar_localization.launch"/>
+</launch>

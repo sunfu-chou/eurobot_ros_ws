@@ -1,0 +1,86 @@
+TebLocalPlannerROS:
+  odom_topic: odom
+  map_frame: map
+
+  # Trajectory
+
+  dt_ref: 0.15
+  dt_hysteresis: 0.015
+  min_samples: 3
+  global_plan_overwrite_orientation: true
+  max_global_plan_lookahead_dist: 1.0
+  force_reinit_new_goal_dist: 1.0
+  feasibility_check_no_poses: 5
+  publish_feedback: false
+  shrink_horizon_backup: true
+  allow_init_with_backwards_motion: true
+  exact_arc_length: false
+  shrink_horizon_min_duration: 10.0
+
+  global_plan_viapoint_sep: 0.1
+
+  # Robot
+
+  max_vel_x: 0.4
+  max_vel_x_backwards: 0.4
+  max_vel_theta: 6
+  acc_lim_x: 1.0
+  acc_lim_theta: 3
+
+  footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
+    type: "circular"
+    radius: 0.2 # for type "circular"
+
+  # GoalTolerance
+
+  xy_goal_tolerance: 0.1
+  yaw_goal_tolerance: 0.1
+  free_goal_vel: false
+
+  # Obstacles
+
+  min_obstacle_dist: 0.1
+  inflation_dist: 0.0
+  include_dynamic_obstacles: true
+  include_costmap_obstacles: true
+  legacy_obstacle_association: false
+  obstacle_association_force_inclusion_factor: 1.5
+  obstacle_association_cutoff_factor: 5.0
+  costmap_obstacles_behind_robot_dist: 1.0
+  obstacle_poses_affected: 30
+
+  # Optimization
+
+  no_inner_iterations: 8
+  no_outer_iterations: 8
+  penalty_epsilon: 0.1
+  weight_max_vel_x: 2
+  weight_max_vel_theta: 1
+  weight_acc_lim_x: 1
+  weight_acc_lim_theta: 1
+  weight_kinematics_nh: 1000
+  weight_kinematics_forward_drive: 1
+  weight_kinematics_turning_radius: 1
+  weight_optimaltime: 10
+  weight_obstacle: 20
+  weight_inflation: 1
+  weight_viapoint: 5
+  weight_adapt_factor: 2.0
+
+  # Homotopy Class Planner
+
+  enable_multithreading: true
+  max_number_classes: 5
+  selection_cost_hysteresis: 1.0
+  selection_obst_cost_scale: 100
+  selection_viapoint_cost_scale: 1.0
+  selection_alternative_time_cost: false
+  enable_homotopy_class_planning: true
+  switching_blocking_period: 0.0
+  roadmap_graph_no_samples: 15
+  roadmap_graph_area_width: 5
+  h_signature_prescaler: 1.0
+  h_signature_threshold: 0.1
+  obstacle_heading_threshold: 0.45
+  viapoints_all_candidates: true
+  visualize_hc_graph: false

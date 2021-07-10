@@ -1,0 +1,24 @@
+<launch>
+
+    <node pkg="map_server" name="map_server" type="map_server" args="$(find eurobot)/maps/map.yaml" clear_params="true"/>
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
+        <!-- costmap -->
+        <rosparam file="$(find eurobot)/params/navigation/costmap/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find eurobot)/params/navigation/costmap/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find eurobot)/params/navigation/costmap/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find eurobot)/params/navigation/costmap/local_costmap_params.yaml" command="load" />
+
+        <!-- movebase -->
+        <rosparam file="$(find eurobot)/params/navigation/move_base_params.yaml" command="load" />
+
+        <!-- global planners -->
+        <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+        <rosparam file="$(find eurobot)/params/navigation/global_planner_params.yaml" command="load" />
+        
+        <!-- local planners -->
+        <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+        <rosparam file="$(find eurobot)/params/navigation/local_planner/teb_local_planner_params.yaml" command="load" />
+    </node>
+    
+</launch>

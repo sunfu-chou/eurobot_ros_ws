@@ -1,0 +1,9 @@
+[submodule "src/lidar_localization"]
+	path = src/lidar_localization
+	url = git@github.com:sunfu-chou/lidar_localization.git
+[submodule "src/obstacle_detector"]
+	path = src/obstacle_detector
+	url = https://github.com/tysik/obstacle_detector.git
+[submodule "src/ydlidar_ros_driver"]
+	path = src/ydlidar_ros_driver
+	url = https://github.com/YDLIDAR/ydlidar_ros_driver.git

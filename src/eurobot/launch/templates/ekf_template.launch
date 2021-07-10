@@ -1,0 +1,37 @@
+<launch>
+    <!--
+  <arg name="map_file" default="$(find testbot)/maps/map.yaml"/>
+  <node pkg="serial_port" name="serial_port" type="serial_port_node" output="screen" />
+-->
+    <node name="base_footprint_to_imu" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0.1 0 0 0 1 base_footprint imu_frame" />
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_global" clear_params="true" output="screen">
+        <rosparam command="load" file="$(find eurobot)/params/ekf_template_global.yaml" />
+        <!--
+    Placeholder for output topic remapping 
+    <remap from="accel/filtered" to=""/>
+    -->
+        <remap from="odometry/filtered" to="global_filter" />
+    </node>
+    <!--
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_local" clear_params="true">
+    <rosparam command="load" file="$(find robot_localization)/params/ekf_template_local.yaml" />
+      
+    Placeholder for output topic remapping
+    <remap from="accel/filtered" to=""/>
+    
+    <remap from="odometry/filtered" to="local_filter"/>
+  </node>
+-->
+    <!-- <node pkg="robot_localization" type="initial_pose" name="initial_pose" output="screen" /> -->
+    <!--
+  <node pkg="testbot" name = "odometry_test" type = "odometry_test" output="screen" />
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+  <include file="$(find robot_setup_tf)/launch/turtlebot3_eurobot.launch"/>
+
+  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch"/>
+
+  
+  <node pkg="tf" type="static_transform_publisher" name="global_static" args="0 0 0 0 0 0 map odom 100"/>
+  -->
+</launch>
