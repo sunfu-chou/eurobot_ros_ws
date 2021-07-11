@@ -7,3 +7,6 @@
 [submodule "src/ydlidar_ros_driver"]
 	path = src/ydlidar_ros_driver
 	url = https://github.com/YDLIDAR/ydlidar_ros_driver.git
+[submodule "src/teb_local_planner_tutorials"]
+	path = src/teb_local_planner_tutorials
+	url = https://github.com/rst-tu-dortmund/teb_local_planner_tutorials.git
