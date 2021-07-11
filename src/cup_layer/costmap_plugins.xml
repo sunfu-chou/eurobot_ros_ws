@@ -1,0 +1,8 @@
+<class_libraries>
+  <library path="lib/libcup_layer_2">
+    <class type="cup_layer::CupLayer2"     base_class_type="costmap_2d::Layer">
+      <description>update cup layer</description>
+    </class>
+  </library>
+</class_libraries>
+
