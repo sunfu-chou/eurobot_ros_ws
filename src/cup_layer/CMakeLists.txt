@@ -217,5 +217,7 @@ add_dependencies(cup_layer ${catkin_EXPORTED_TARGETS})
 
 add_executable(cup_server src/cup_server.cpp)
 target_link_libraries(cup_server ${catkin_LIBRARIES})
+add_dependencies(cup_server ${catkin_EXPORTED_TARGETS})
+
 add_executable(cup_publisher src/cup_publisher.cpp)
 target_link_libraries(cup_publisher ${catkin_LIBRARIES})

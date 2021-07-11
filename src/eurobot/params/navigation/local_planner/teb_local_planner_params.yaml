@@ -29,7 +29,7 @@ TebLocalPlannerROS:
 
   footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
     type: "circular"
-    radius: 0.2 # for type "circular"
+    radius: 0.1 # for type "circular"
 
   # GoalTolerance
 
@@ -40,28 +40,25 @@ TebLocalPlannerROS:
   # Obstacles
 
   min_obstacle_dist: 0.1
-  inflation_dist: 0.0
+  inflation_dist: 0.1
   include_dynamic_obstacles: true
   include_costmap_obstacles: true
-  legacy_obstacle_association: false
-  obstacle_association_force_inclusion_factor: 1.5
-  obstacle_association_cutoff_factor: 5.0
   costmap_obstacles_behind_robot_dist: 1.0
   obstacle_poses_affected: 30
 
   # Optimization
 
-  no_inner_iterations: 8
-  no_outer_iterations: 8
+  no_inner_iterations: 5
+  no_outer_iterations: 4
   penalty_epsilon: 0.1
   weight_max_vel_x: 2
   weight_max_vel_theta: 1
-  weight_acc_lim_x: 1
-  weight_acc_lim_theta: 1
+  weight_acc_lim_x: 10
+  weight_acc_lim_theta: 10
   weight_kinematics_nh: 1000
   weight_kinematics_forward_drive: 1
   weight_kinematics_turning_radius: 1
-  weight_optimaltime: 10
+  weight_optimaltime: 20
   weight_obstacle: 20
   weight_inflation: 1
   weight_viapoint: 5
