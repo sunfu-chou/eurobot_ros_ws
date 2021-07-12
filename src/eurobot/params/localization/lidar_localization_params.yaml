@@ -1,8 +1,8 @@
 active: true
 
-cov_x: 0.9
-cov_y: 0.9
-cov_yaw: 0.9
+cov_x: 0.1
+cov_y: 0.1
+cov_yaw: 0.1
 
 beacon_1_x: 1
 beacon_1_y: -0.092

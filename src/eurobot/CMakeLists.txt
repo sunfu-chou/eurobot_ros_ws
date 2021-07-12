@@ -133,6 +133,8 @@ ${catkin_INCLUDE_DIRS}
 add_executable(obstacle_msg_publisher src/obstacle_msg_publisher.cpp)
 target_link_libraries(obstacle_msg_publisher ${catkin_LIBRARIES})
 
+add_executable(odom_pub src/odom_pub.cpp)
+target_link_libraries(odom_pub ${catkin_LIBRARIES})
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
