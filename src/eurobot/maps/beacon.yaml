@@ -1,4 +1,4 @@
-image: wall.png
+image: beacon.png
 resolution: 0.01
 origin: [-1, -1, 0]
 negate: 0

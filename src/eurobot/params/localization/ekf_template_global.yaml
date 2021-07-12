@@ -66,11 +66,11 @@ odom_frame: odom            # Defaults to "odom" if unspecified
 base_link_frame: base_footprint  # Defaults to "base_link" if unspecified
 world_frame: map           # Defaults to the value of odom_frame if unspecified
 
-# initial_state: [0.8,  0.3,  0.0,
-#                 0.0,  0.0,  0.0,
-#                 0.0,  0.0,  0.0,
-#                 0.0,  0.0,  0.0,
-#                 0.0,  0.0,  0.0]
+initial_state: [1.5,  0.5,  0.0,
+                0.0,  0.0,  0.0,
+                0.0,  0.0,  0.0,
+                0.0,  0.0,  0.0,
+                0.0,  0.0,  0.0]
 
 # The filter accepts an arbitrary number of inputs from each input message type (nav_msgs/Odometry,
 # geometry_msgs/PoseWithCovarianceStamped, geometry_msgs/TwistWithCovarianceStamped,
@@ -182,7 +182,7 @@ imu0_linear_acceleration_rejection_threshold: 0.8  #
 # predicition. Note that if an acceleration measurement for the variable in question is available from one of the
 # inputs, the control term will be ignored.
 # Whether or not we use the control input during predicition. Defaults to false.
-use_control: true
+use_control: false
 # Whether the input (assumed to be cmd_vel) is a geometry_msgs/Twist or geometry_msgs/TwistStamped message. Defaults to
 # false.
 stamped_control: false

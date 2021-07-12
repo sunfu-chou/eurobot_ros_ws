@@ -1,0 +1,42 @@
+<launch>
+    
+    <node name="map_to_odom" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 1 map odom"/>
+    <node name="base_to_laser" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 -0.044 0.999 base_footprint laser_frame"/>
+
+    <node name="scans_merger" pkg="obstacle_detector" type="scans_merger_node">
+        <param name="active"            value="true"/>
+        <param name="publish_scan"      value="false"/>
+        <param name="publish_pcl"       value="true"/>
+    
+        <param name="ranges_num"        value="1440"/>
+    
+        <param name="min_scanner_range" value="0.05"/>
+        <param name="max_scanner_range" value="10.0"/>
+    
+        <param name="min_x_range"       value="-10.0"/>
+        <param name="max_x_range"       value="10.0"/>
+        <param name="min_y_range"       value="-10.0"/>
+        <param name="max_y_range"       value="10.0"/>
+    
+        <param name="fixed_frame_id"   value="map"/>
+        <param name="target_frame_id"   value="base_footprint"/>
+        <remap from="scan" to="scan_merged"/>
+        <remap from="front_scan" to="scan"/>
+      </node>
+
+    <node name="beacon_extractor" pkg="obstacle_detector" type="obstacle_extractor_node">
+        <rosparam file="$(find lidar_localization)/params/beacon_excrator_params.yaml" command="load" />
+        <remap from="raw_obstacles" to="obstacles_to_base"/>
+    </node>
+
+    <node name="obstacle_extractor" pkg="obstacle_detector" type="obstacle_extractor_node">
+        <rosparam file="$(find lidar_localization)/params/obstacle_excrator_params.yaml" command="load" />
+        <remap from="raw_obstacles" to="obstacles_to_map"/>
+    </node>
+
+    <node name="lidar_localization" pkg="lidar_localization" type="lidar_localization_node" output="screen">
+        <rosparam file="$(find eurobot)/params/localization/lidar_localization_params.yaml" command="load" />
+    </node>
+
+    <node name="area_obstacles_extractor" pkg="lidar_localization" type="area_obstacles_extractor_node" output="screen"/>
+</launch>

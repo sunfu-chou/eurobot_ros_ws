@@ -1,0 +1,74 @@
+include "robot.inc"
+
+resolution 0.01
+interval_sim 20
+
+define beacon model
+(
+  color "black"
+  boundary 0
+  gui_nose 0
+  gui_grid 1
+  gui_move 0
+  gui_outline 0
+  laser_return 1
+)
+
+define wall model
+(
+  color "black"
+  boundary 0
+  gui_nose 0
+  gui_grid 0
+  gui_move 0
+  gui_outline 0
+  laser_return -1
+)
+
+define obstacle model(
+  color "blue"
+  laser_return 1
+)
+
+obstacle(
+  name "nooooooob"
+  size [0.6 0.6 1.75]
+  pose [ -1 -1 0 0]
+)
+
+obstacle(
+  name "nooooooob1"
+  size [0.6 0.6 1.75]
+  pose [ -1 -1 0 0]
+)
+
+obstacle(
+  name "nooooooob2"
+  size [0.6 0.6 1.75]
+  pose [ -1 -1 0 0]
+)
+
+beacon
+(
+  name "beacon"
+  bitmap "../maps/beacon.png"
+  size [4 5 2]
+  pose [1 1.5 0.0 0.0]
+)
+
+wall
+(
+  name "wall"
+  bitmap "../maps/wall.png"
+  size [2 3 2]
+  pose [1 1.5 0.0 0.0]
+  ranger_return -1
+)
+
+diff_drive_robot
+(
+  name "robot"
+  pose [ 1.5 0.5 0.0 0.0 ]
+  odom_error [1 1 0.00 1]
+  gui_nose 1
+)
