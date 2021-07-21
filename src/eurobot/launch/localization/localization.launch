@@ -1,11 +1,11 @@
 <launch>
     <include file="$(find eurobot)/launch/localization/ekf.launch"/>
+    <include file="$(find eurobot)/launch/localization/lidar_localization.launch"/>
     
-    <!-- use for bag -->
+    <!-- rosbag scan time stamp transformer -->
     <!-- <node name="scan_rosbag" pkg="lidar_localization" type="scan_rosbag"/>
     <remap from="scan" to="scan_bag"/> -->
     
-    <include file="$(find eurobot)/launch/localization/lidar_localization.launch"/>
 
     <!-- <node name="rx_to_odom" pkg="lidar_localization" type="rx_to_odom">
         <param name="active" value="true"/>

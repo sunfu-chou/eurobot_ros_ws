@@ -60,7 +60,7 @@ define laser ranger
 obstacle
 (
   name "nooooooob"
-  size [0.6 0.6 1.75]
+  size [0.15 0.15 1.75]
   pose [ -1 -1 0 0]
 )
 

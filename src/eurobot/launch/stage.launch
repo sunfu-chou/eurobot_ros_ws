@@ -1,30 +1,21 @@
 <launch>
     <param name="/use_sim_time" value="true"/>
-    <node name="map_to_odom" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 1 map odom"/>
-    <node name="map_to_beacon" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 1 map beacon_map"/>
 
+    <!-- map -->
+    <node name="map_to_beacon" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 1 map beacon_map"/>
     <node name="beacon_server" pkg="map_server" type="map_server" args="$(find eurobot)/maps/beacon.yaml" output="screen">
         <remap from="map" to="beacon_map"/>
         <remap from="map_metadata" to="beacon_map_metadata"/>
     </node>
 
+    <!-- stage -->
     <node pkg="stage_ros" type="stageros" name="stageros" args="$(find eurobot)/stage/beacon.world" output="screen">
         <remap from="base_scan" to="scan"/>
-        <remap from="odom" to="raw_odom"/>
     </node>
 
-    <node pkg="eurobot" type="odom_pub" name="odom_pub"/>
+    <!-- localization -->
+    <include file="$(find eurobot)/launch/localization/localization.launch"/>
 
-    <node pkg="amcl" type="amcl" name="amcl" output="screen">
-        <rosparam file="$(find eurobot)/params/localization/amcl_params.yaml" command="load" />
-
-        <param name="initial_pose_x" value="1.5"/>
-        <param name="initial_pose_y" value="0.5"/>
-        <param name="initial_pose_a" value="0"/>
-        <remap from="map" to="beacon_map"/>
-        <remap from="scan" to="beacon_scan"/>
-    </node>
-
+    <!-- rviz -->
 	<node name="rviz" pkg="rviz" type="rviz" args="-d /home/sunfu/eurobot_ros_ws/rviz/lidar_nav.rviz"/>
-    <!-- <include file="$(find eurobot)/launch/localization/localization.launch"/> -->
 </launch>

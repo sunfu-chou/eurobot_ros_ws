@@ -66,8 +66,8 @@ odom_frame: odom            # Defaults to "odom" if unspecified
 base_link_frame: base_footprint  # Defaults to "base_link" if unspecified
 world_frame: map           # Defaults to the value of odom_frame if unspecified
 
-initial_state: [1.5,  0.5,  0.0,
-                0.0,  0.0,  0.0,
+initial_state: [0.5,  0.5,  0.0,
+                0.0,  0.0,  1.6,
                 0.0,  0.0,  0.0,
                 0.0,  0.0,  0.0,
                 0.0,  0.0,  0.0]
@@ -140,7 +140,7 @@ odom0_twist_rejection_threshold: 100
 # odom1_twist_rejection_threshold: 0.2
 # odom1_nodelay: false
 
-pose0: /amcl_pose
+pose0: /lidar_bonbonbon
 pose0_config: [true,  true,  false,
                false, false, true,
                false, false, false,
