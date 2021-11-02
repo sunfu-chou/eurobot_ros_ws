@@ -6,6 +6,10 @@ Connecting to GitHub with SSH
 ```
 git clone --recurse-submodules git@github.com:sunfu-chou/eurobot_ros_ws.git
 ```
+HTTPS
+```
+git clone --recurse-submodules https://github.com/sunfu-chou/eurobot_ros_ws.git
+```
 
 ## ROS dependencies 
 1. navigation
