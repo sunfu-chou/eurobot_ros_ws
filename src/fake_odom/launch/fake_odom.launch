@@ -1,6 +1,6 @@
 <launch>
 
-    <!-- <node name="fake_odom" pkg="fake_odom" type="fake_odom_node" output="screen">
+    <node name="fake_odom" pkg="fake_odom" type="fake_odom_node" output="screen">
       <param name="active" value="true"/>
       <param name="publish_pose" value="true"/>
       <param name="publish_odom" value="true"/>
@@ -19,7 +19,7 @@
       <param name="fixed_frame_id" value="odom"/>
       <param name="target_frame_id" value="base_footprint"/>
       <remap from="odom_pose" to="lidar_bonbonbon"/>
-    </node> -->
+    </node>
 
     <node name="teleop" pkg="fake_odom" type="teleop.py" output="screen" clear_params="true">
       <param name="speed" value="0.5"/>

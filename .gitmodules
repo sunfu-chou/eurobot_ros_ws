@@ -1,6 +1,6 @@
 [submodule "src/lidar_localization"]
 	path = src/lidar_localization
-	url = git@github.com:sunfu-chou/lidar_localization.git
+	url = https://github.com/sunfu-chou/lidar_localization.git
 [submodule "src/obstacle_detector"]
 	path = src/obstacle_detector
 	url = https://github.com/tysik/obstacle_detector.git
