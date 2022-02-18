@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# | /dev/USB2 | /dev/USB0 |
+# | /dev/USB3 | /dev/USB1 |
+
 echo  'KERNEL=="ttyUSB*", KERNELS=="1-1.1", MODE:="0777", SYMLINK+="USB0"' > /etc/udev/rules.d/rpi-usb.rules
 echo  'KERNEL=="ttyUSB*", KERNELS=="1-1.2", MODE:="0777", SYMLINK+="USB1"' >> /etc/udev/rules.d/rpi-usb.rules
 echo  'KERNEL=="ttyUSB*", KERNELS=="1-1.3", MODE:="0777", SYMLINK+="USB2"' >> /etc/udev/rules.d/rpi-usb.rules
