@@ -5,13 +5,11 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /Map1/TF1
         - /Map1/TF1/Frames1
         - /Localization1
-        - /Localization1/Lidar1
-        - /Localization1/Odometry1
-      Splitter Ratio: 0.5
-    Tree Height: 629
+        - /Localization1/EKFPose1/Shape1
+      Splitter Ratio: 0.6529411673545837
+    Tree Height: 640
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -25,15 +23,13 @@ Panels:
   - Class: rviz/Views
     Expanded:
       - /Current View1
-      - /Top View - yx1/Focal Point1
-      - /Top View - xy1
     Name: Views
     Splitter Ratio: 0.5
   - Class: rviz/Time
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
   - Class: Scans Merger
     Name: Scans Merger
   - Class: Obstacle Extractor
@@ -49,6 +45,16 @@ Visualization Manager:
   Displays:
     - Class: rviz/Group
       Displays:
+        - Alpha: 0.699999988079071
+          Class: rviz/Map
+          Color Scheme: map
+          Draw Behind: false
+          Enabled: true
+          Name: Map
+          Topic: /beacon_map
+          Unreliable: false
+          Use Timestamp: false
+          Value: true
         - Class: rviz/TF
           Enabled: true
           Frame Timeout: 15
@@ -56,10 +62,27 @@ Visualization Manager:
             All Enabled: false
             base_footprint:
               Value: true
+            base_laser_link:
+              Value: true
+            base_link:
+              Value: true
+            beacon1:
+              Value: true
+            beacon2:
+              Value: true
+            beacon3:
+              Value: true
+            beacon_map:
+              Value: true
+            imu_frame:
+              Value: true
+            laser_frame:
+              Value: true
             map:
               Value: true
             odom:
               Value: true
+          Marker Alpha: 1
           Marker Scale: 1
           Name: TF
           Show Arrows: false
@@ -67,9 +90,23 @@ Visualization Manager:
           Show Names: true
           Tree:
             map:
+              beacon1:
+                {}
+              beacon2:
+                {}
+              beacon3:
+                {}
+              beacon_map:
+                {}
               odom:
                 base_footprint:
-                  {}
+                  base_link:
+                    base_laser_link:
+                      {}
+                  imu_frame:
+                    {}
+                  laser_frame:
+                    {}
           Update Interval: 0
           Value: true
         - Alpha: 0.5
@@ -111,9 +148,7 @@ Visualization Manager:
               Enabled: true
               Invert Rainbow: false
               Max Color: 255; 255; 255
-              Max Intensity: 1020
               Min Color: 0; 0; 0
-              Min Intensity: 1008
               Name: LaserScan
               Position Transformer: XYZ
               Queue Size: 10
@@ -141,9 +176,7 @@ Visualization Manager:
               Enabled: true
               Invert Rainbow: false
               Max Color: 255; 255; 255
-              Max Intensity: 4096
               Min Color: 0; 0; 0
-              Min Intensity: 0
               Name: LaserPointCloud
               Position Transformer: XYZ
               Queue Size: 10
@@ -160,22 +193,12 @@ Visualization Manager:
               Class: Obstacles
               Enabled: true
               Margin color: 0; 170; 0
-              Name: rawObstacles
-              Opacity: 0.75
-              Segments color: 170; 170; 0
-              Segments thickness: 0.029999999329447746
-              Topic: /raw_obstacles
-              Unreliable: false
-              Value: true
-            - Circles color: 170; 0; 0
-              Class: Obstacles
-              Enabled: true
-              Margin color: 0; 170; 0
               Name: Obstacles
               Opacity: 0.75
+              Queue Size: 10
               Segments color: 170; 170; 0
               Segments thickness: 0.029999999329447746
-              Topic: /obstacles
+              Topic: /obstacles_to_base
               Unreliable: false
               Value: true
             - Alpha: 1
@@ -202,6 +225,7 @@ Visualization Manager:
               Head Length: 0.05000000074505806
               Head Radius: 0.05000000074505806
               Name: LidarPose
+              Queue Size: 10
               Shaft Length: 0.5
               Shaft Radius: 0.019999999552965164
               Shape: Arrow
@@ -218,10 +242,11 @@ Visualization Manager:
               Head Length: 0.05000000074505806
               Head Radius: 0.05000000074505806
               Name: ColumnPose
+              Queue Size: 10
               Shaft Length: 0.5
               Shaft Radius: 0.019999999552965164
               Shape: Arrow (3D)
-              Topic: /columns
+              Topic: /beacons
               Unreliable: false
               Value: true
           Enabled: true
@@ -244,11 +269,12 @@ Visualization Manager:
               Value: true
             Value: true
           Enabled: true
-          Keep: 5
+          Keep: 1
           Name: EKFPose
           Position Tolerance: 0.10000000149011612
+          Queue Size: 10
           Shape:
-            Alpha: 0.30000001192092896
+            Alpha: 1
             Axes Length: 1
             Axes Radius: 0.10000000149011612
             Color: 255; 25; 0
@@ -258,40 +284,6 @@ Visualization Manager:
             Shaft Radius: 0.02500000037252903
             Value: Arrow
           Topic: /global_filter
-          Unreliable: false
-          Value: true
-        - Angle Tolerance: 0.10000000149011612
-          Class: rviz/Odometry
-          Covariance:
-            Orientation:
-              Alpha: 0.5
-              Color: 255; 255; 127
-              Color Style: Unique
-              Frame: Local
-              Offset: 1
-              Scale: 1
-              Value: true
-            Position:
-              Alpha: 0.30000001192092896
-              Color: 204; 51; 204
-              Scale: 1
-              Value: true
-            Value: true
-          Enabled: true
-          Keep: 10
-          Name: Odometry
-          Position Tolerance: 0.10000000149011612
-          Shape:
-            Alpha: 1
-            Axes Length: 1
-            Axes Radius: 0.10000000149011612
-            Color: 255; 25; 0
-            Head Length: 0.30000001192092896
-            Head Radius: 0.10000000149011612
-            Shaft Length: 1
-            Shaft Radius: 0.05000000074505806
-            Value: Arrow
-          Topic: /odom
           Unreliable: false
           Value: true
       Enabled: true
@@ -323,78 +315,60 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
-      Distance: 5
+      Angle: 0
+      Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
-      Focal Point:
-        X: 1
-        Y: 1.5
-        Z: 0
-      Focal Shape Fixed Size: true
-      Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.5697963237762451
+      Scale: 200
       Target Frame: map
-      Value: Orbit (rviz)
-      Yaw: 4.71238899230957
+      X: 1
+      Y: 1.5
     Saved:
-      - Class: rviz/Orbit
-        Distance: 4
+      - Angle: 0
+        Class: rviz/TopDownOrtho
         Enable Stereo Rendering:
           Stereo Eye Separation: 0.05999999865889549
           Stereo Focal Distance: 1
           Swap Stereo Eyes: false
           Value: false
-        Focal Point:
-          X: 1
-          Y: 1.5
-          Z: 0
-        Focal Shape Fixed Size: true
-        Focal Shape Size: 0.05000000074505806
         Invert Z Axis: false
-        Name: Top View - yx
+        Name: xy - TopDownOrtho
         Near Clip Distance: 0.009999999776482582
-        Pitch: 1.5697963237762451
+        Scale: 200
         Target Frame: map
-        Value: Orbit (rviz)
-        Yaw: 3.141592502593994
-      - Class: rviz/Orbit
-        Distance: 5
+        X: 1
+        Y: 1.5
+      - Angle: -1.5700000524520874
+        Class: rviz/TopDownOrtho
         Enable Stereo Rendering:
           Stereo Eye Separation: 0.05999999865889549
           Stereo Focal Distance: 1
           Swap Stereo Eyes: false
           Value: false
-        Focal Point:
-          X: 1
-          Y: 1.5
-          Z: 0
-        Focal Shape Fixed Size: true
-        Focal Shape Size: 0.05000000074505806
         Invert Z Axis: false
-        Name: Top View - xy
+        Name: -yx - TopDownOrtho
         Near Clip Distance: 0.009999999776482582
-        Pitch: 1.5697963237762451
+        Scale: 200
         Target Frame: map
-        Value: Orbit (rviz)
-        Yaw: 4.71238899230957
+        X: 1
+        Y: 1.5
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 1002
+  Height: 1016
   Hide Left Dock: false
   Hide Right Dock: false
   Obstacle Extractor:
     collapsed: false
   Obstacle Tracker:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000015600000351fc0200000007fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc0000003d000002cf000002130100001cfa000000000100000004fb000000100044006900730070006c0061007900730100000000ffffffff0000015600fffffffb00000018005300630061006e00730020004d006500720067006500720100000000000001560000010f00fffffffb00000024004f00620073007400610063006c006500200045007800740072006100630074006f00720100000000ffffffff0000012a00fffffffb00000020004f00620073007400610063006c006500200054007200610063006b006500720100000000ffffffff0000013500fffffffb0000001200530065006c0065006300740069006f006e01000003120000007c0000005c00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f00000351fc0200000004fb0000000a00560069006500770073010000003d00000293000000a400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007301000002d6000000b80000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007301000001f10000019d0000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000078000000039fc0100000002fb0000000800540069006d0065010000000000000780000002eb00fffffffb0000000800540069006d006501000000000000045000000000000000000000050f0000035100000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001560000035ffc0200000007fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc0000003d000002da000002130100001cfa000000000100000004fb000000100044006900730070006c0061007900730100000000ffffffff0000015600fffffffb00000018005300630061006e00730020004d006500720067006500720100000000000001560000010f00fffffffb00000024004f00620073007400610063006c006500200045007800740072006100630074006f00720100000000ffffffff0000012a00fffffffb00000020004f00620073007400610063006c006500200054007200610063006b006500720100000000ffffffff0000013500fffffffb0000001200530065006c0065006300740069006f006e010000031d0000007f0000005c00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f0000035ffc0200000004fb0000000a00560069006500770073010000003d0000029e000000a400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007301000002e1000000bb0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007301000001f10000019d0000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000078000000039fc0100000002fb0000000800540069006d0065010000000000000780000002eb00fffffffb0000000800540069006d006501000000000000045000000000000000000000050f0000035f00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Scans Merger:
     collapsed: false
   Selection:
@@ -407,4 +381,4 @@ Window Geometry:
     collapsed: false
   Width: 1920
   X: 0
-  Y: 0
+  Y: 27

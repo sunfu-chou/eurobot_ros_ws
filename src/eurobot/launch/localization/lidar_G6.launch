@@ -32,7 +32,4 @@
       <param name="range_max"    type="double" value="4.0" />
       <param name="frequency"    type="double" value="12.0"/>
     </node>
-  
-    <node name="base_link_to_laser" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 base_footprint laser_frame"/>
-  
   </launch>

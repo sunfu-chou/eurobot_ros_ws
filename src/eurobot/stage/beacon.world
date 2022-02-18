@@ -40,7 +40,7 @@ define diff_drive_robot position
   drive "diff"
   localization "odom"
   localization_origin [0 0 0 0]
-  odom_error [0.01 0.01 0 0.01]
+  odom_error [1 1 0 1]
   acceleration_bounds [-1 1 -1 1 -1 1 -90 90]
   update_interval 20
 )
