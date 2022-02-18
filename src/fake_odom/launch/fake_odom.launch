@@ -2,7 +2,7 @@
 
     <node name="fake_odom" pkg="fake_odom" type="fake_odom_node" output="screen">
       <param name="active" value="true"/>
-      <param name="publish_pose" value="true"/>
+      <param name="publish_pose" value="false"/>
       <param name="publish_odom" value="true"/>
       <param name="publish_tf" value="true"/>
       <param name="noise" value="true"/>
@@ -18,10 +18,9 @@
       <param name="pose_topic" value="odom_pose"/>
       <param name="fixed_frame_id" value="odom"/>
       <param name="target_frame_id" value="base_footprint"/>
-      <remap from="odom_pose" to="lidar_bonbonbon"/>
     </node>
 
-    <node name="teleop" pkg="fake_odom" type="teleop.py" output="screen" clear_params="true">
+    <node name="teleop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" clear_params="true">
       <param name="speed" value="0.5"/>
       <param name="turn" value="1"/>
       <param name="repeat_rate" value="30"/>

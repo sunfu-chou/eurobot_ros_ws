@@ -3,7 +3,9 @@
     <include file="$(find eurobot)/launch/localization/ekf.launch"/>
     <include file="$(find eurobot)/launch/localization/lidar_localization.launch"/>
 
-
+    <!-- rviz -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d /$(find eurobot)/../../rviz/lidar.rviz"/>
+    <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/>
     <!-- rosbag scan time stamp transformer -->
     <!-- <node name="scan_rosbag" pkg="lidar_localization" type="scan_rosbag"/>
     <remap from="scan" to="scan_bag"/> -->
