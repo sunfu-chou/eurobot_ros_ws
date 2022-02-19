@@ -1,18 +1,18 @@
-# Eurobot 2021 ROS workspace
+# Eurobot ROS workspace
+
+This ROS workspace for Eurobot includes localization and 2-D simulation (stage).
+
+It works for computers and RPi 4.
 
 ## Environment
-Ubuntu 18.04
 
-ros melodic
+Ubuntu 18.04 / ROS melodic
+
+Ubuntu 20.04 / ROS noetic
+
 ## Download
 
-Connecting to GitHub with 
-
-SSH
-```
-git clone --recurse-submodules git@github.com:sunfu-chou/eurobot_ros_ws.git
-```
-**HTTPS** (*recommended*)
+**HTTPS**
 ```
 git clone --recurse-submodules https://github.com/sunfu-chou/eurobot_ros_ws.git
 ```
@@ -23,31 +23,52 @@ git clone --recurse-submodules https://github.com/sunfu-chou/eurobot_ros_ws.git
 3. teb_local_planner
 4. robot_localization
 
-## Prepare to build
+## Build
 
-### Build and Install ydlidar sdk
+### Build and Install YDLidar-SDK
 
 ```bash
+# WORKDIR . (root of the repo)
+mkdir src/YDLidar-SDK/build
 cd src/YDLidar-SDK/build
 cmake ..
 make
 sudo make install
 ```
 
-you can discard change after build and isntall
+[NOT necessary]
+
+You can discard changes after build and install by
+
+```bash
+# WORKDIR ./src/YDLidar-SDK/build
+cd ..
+git reset --hard
+git clean -fd
+```
 
 ### Install ROS package
 
 ```bash
-sudo apt install ros-melodic-navigation ros-melodic-costmap-converter ros-melodic-teb-local-planner ros-melodic-robot-localization
+sudo apt install -y \
+ros-${ROS_DISTRO}-navigation \
+ros-${ROS_DISTRO}-costmap-converter \
+ros-${ROS_DISTRO}-teb-local-planner \
+ros-${ROS_DISTRO}-robot-localization
 ```
 
-## Connect to YDlidar 
+### Build the workspace
 
-### Create serial port alias [optional but recommended]
+```bash
+# WORKDIR . (root of the repo)
+catkin_make
 ```
-chmod 0777 src/ydlidar_ros_driver/startup/*
-sudo sh src/ydlidar_ros_driver/startup/initenv.sh
+## Connect to YDlidar (Only for RPi)
+
+### Create serial port alias
+```
+chmod +x ./rename_RPI_USB_ports.sh
+sudo ./rename_RPI_USB_ports.sh
 ```
 
 ### Test connection
