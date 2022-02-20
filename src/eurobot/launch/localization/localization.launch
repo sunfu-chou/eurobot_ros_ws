@@ -1,5 +1,5 @@
 <launch>
-    <include file="$(find eurobot)/launch/localization/lidar_G6.launch"/>
+    <!-- <include file="$(find eurobot)/launch/localization/lidar_G6.launch"/> -->
     <include file="$(find eurobot)/launch/localization/ekf.launch"/>
     <include file="$(find eurobot)/launch/localization/lidar_localization.launch"/>
 

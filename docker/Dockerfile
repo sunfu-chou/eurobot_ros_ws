@@ -28,7 +28,10 @@ RUN mkdir ./eurobot_ros_ws/src/YDLidar-SDK/build/ \
     && cd ./eurobot_ros_ws/src/YDLidar-SDK/build/ \
     && cmake .. \
     && make \
-    && make install
+    && make install \
+    && cd .. \
+    && git reset --hard \
+    && git clean -fd
 
 ENV CATKIN_WS=/root/eurobot_ros_ws
 ENV Qt5_DIR=/usr/lib/x86_64-linux-gnu/qt5
