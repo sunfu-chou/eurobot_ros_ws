@@ -9,6 +9,7 @@
 
     <node name="lidar_localization" pkg="lidar_localization" type="lidar_localization_node" output="screen">
         <rosparam file="$(find eurobot)/params/localization/lidar_localization_params.yaml" command="load" />
+        <remap from="obstacles" to="obstacles_to_base"/>
     </node>
 
     <!-- obstacle -->
