@@ -81,6 +81,7 @@ private:
   /* private variables */
   std::default_random_engine _re_;
   std::normal_distribution<double> random_vx_;
+  std::normal_distribution<double> random_vy_;
   std::normal_distribution<double> random_vyaw_;
 
   /* ros param */
@@ -95,6 +96,7 @@ private:
   double p_init_pose_y;
   double p_init_pose_yaw;
   double p_cov_vx_;
+  double p_cov_vy_;
   double p_cov_vyaw_;
 
   std::string p_odom_topic_;

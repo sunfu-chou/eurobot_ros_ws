@@ -1,11 +1,11 @@
-#!/usr/bin/env python
+#!  /usr/bin/python3
 
 from __future__ import print_function
 import tty
 import termios
 import select
 import sys
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import TwistWithCovarianceStamped
 import rospy
 
 import threading
@@ -61,7 +61,7 @@ speedBindings = {
 class PublishThread(threading.Thread):
     def __init__(self, rate):
         super(PublishThread, self).__init__()
-        self.publisher = rospy.Publisher('cmd_vel', Twist, queue_size=1)
+        self.publisher = rospy.Publisher('cmd_vel', TwistWithCovarianceStamped, queue_size=1)
         self.x = 0.0
         self.y = 0.0
         self.z = 0.0
@@ -112,19 +112,26 @@ class PublishThread(threading.Thread):
         self.join()
 
     def run(self):
-        twist = Twist()
+        twist = TwistWithCovarianceStamped()
         while not self.done:
             self.condition.acquire()
             # Wait for a new message or timeout.
             self.condition.wait(self.timeout)
 
             # Copy state into twist message.
-            twist.linear.x = self.x * self.speed
-            twist.linear.y = self.y * self.speed
-            twist.linear.z = self.z * self.speed
-            twist.angular.x = 0
-            twist.angular.y = 0
-            twist.angular.z = self.th * self.turn
+            twist.header.stamp = rospy.Time.now()
+            twist.twist.covariance = [0.1e-9, 0.0, 0.0, 0.0, 0.0, 0.0, 
+                                      0.0, 0.1e-9, 0.0, 0.0, 0.0, 0.0, 
+                                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
+                                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
+                                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
+                                      0.0, 0.0, 0.0, 0.0, 0.0, 0.1e-9]
+            twist.twist.twist.linear.x = self.x * self.speed
+            twist.twist.twist.linear.y = self.y * self.speed
+            twist.twist.twist.linear.z = self.z * self.speed
+            twist.twist.twist.angular.x = 0
+            twist.twist.twist.angular.y = 0
+            twist.twist.twist.angular.z = self.th * self.turn
 
             self.condition.release()
 

@@ -1,0 +1,8 @@
+<launch>
+  <node name="teleop" pkg="fake_odom" type="teleop.py">
+    <param name="repeat_rate" value="60"/>
+    <param name="key_timeout" value="0.0"/>
+    <remap from="cmd_vel" to="Toposition" />
+    
+  </node>
+</launch>
