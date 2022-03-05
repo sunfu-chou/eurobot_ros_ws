@@ -12,6 +12,7 @@
       <param name="init_pose_y" value="2.65"/>
       <param name="init_pose_yaw" value="$(eval 0 * 3.1415 / 180.0)"/>
       <param name="cov_vx" value="0.00005"/>
+      <param name="cov_vy" value="0.00005"/>
       <param name="cov_vyaw" value="0.00005"/>
   
       <param name="odom_topic" value="odom"/>
