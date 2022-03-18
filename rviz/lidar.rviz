@@ -64,11 +64,17 @@ Visualization Manager:
             All Enabled: false
             base_footprint:
               Value: true
+            base_laser_link:
+              Value: true
+            base_link:
+              Value: true
             beacon1:
               Value: true
             beacon2:
               Value: true
             beacon3:
+              Value: true
+            beacon_map:
               Value: true
             imu_frame:
               Value: true
@@ -92,8 +98,13 @@ Visualization Manager:
                 {}
               beacon3:
                 {}
+              beacon_map:
+                {}
               odom:
                 base_footprint:
+                  base_link:
+                    base_laser_link:
+                      {}
                   imu_frame:
                     {}
                   laser_frame:
@@ -279,6 +290,14 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: Localization
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /obstacle_marker
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48

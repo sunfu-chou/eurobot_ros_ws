@@ -17,6 +17,6 @@
     <include file="$(find eurobot)/launch/localization/localization.launch"/>
 
     <!-- rviz -->
-	<node name="rviz" pkg="rviz" type="rviz" args="-d /$(find eurobot)/../../rviz/lidar.rviz"/>
+	<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d /$(find eurobot)/../../rviz/lidar.rviz"/> -->
     <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/>
 </launch>
