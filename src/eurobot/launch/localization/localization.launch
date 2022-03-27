@@ -3,6 +3,5 @@
     <include file="$(find eurobot)/launch/localization/lidar_S2.launch"/>
     <include file="$(find eurobot)/launch/localization/ekf.launch"/>
     <include file="$(find eurobot)/launch/localization/lidar_localization.launch"/>
-	<node name="rviz" pkg="rviz" type="rviz" args="-d /$(find eurobot)/../../rviz/lidar.rviz"/>
 
 </launch>

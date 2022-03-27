@@ -19,3 +19,6 @@
 [submodule "src/nlink_serial"]
 	path = src/nlink_serial
 	url = https://github.com/nooploop-dev/serial.git
+[submodule "src/imu_calib"]
+	path = src/imu_calib
+	url = https://github.com/dpkoch/imu_calib
