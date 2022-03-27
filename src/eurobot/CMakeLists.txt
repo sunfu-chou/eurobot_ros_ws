@@ -138,6 +138,7 @@ target_link_libraries(odom_pub ${catkin_LIBRARIES})
 
 add_executable(nlink_tagframe_converter src/nlink_tagframe_converter.cpp)
 target_link_libraries(nlink_tagframe_converter ${catkin_LIBRARIES})
+add_dependencies(nlink_tagframe_converter ${catkin_EXPORTED_TARGETS})
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
