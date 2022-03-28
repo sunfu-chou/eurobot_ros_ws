@@ -1,13 +1,13 @@
 <launch>
     <node pkg="nlink_parser" type="linktrack" name="uwb_data_exctractor" output="screen">
-        <param name="port_name" value="/dev/ttyS0" />
+        <param name="port_name" value="/dev/SERIAL0" />
         <param name="baud_rate" value="921600" />
 
         <remap from="nlink_linktrack_data_transmission" to="uwb_data_tx"/>
         <remap from="nlink_linktrack_tagframe0" to="uwb_state"/>
     </node>
 
-    <node pkg="eurobot" type="nlink_tagframe_converter" name="nlink_tagframe_converter" output="screen"/>
+    <!-- <node pkg="eurobot" type="nlink_tagframe_converter" name="nlink_tagframe_converter" output="screen"/>
 
     <node pkg="imu_calib" type="apply_calib" name="apply_calib" output="screen">
         <param name="calib_file" value="$(find eurobot)/params/imu_calib.yaml"/>
@@ -17,5 +17,5 @@
         <remap from="corrected" to="uwb_imu"/>
     </node>
 
-    <node name="map_to_odom" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 map base_footprint"/>
+    <node name="map_to_odom" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 map base_footprint"/> -->
 </launch>
