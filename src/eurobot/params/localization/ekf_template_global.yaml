@@ -1,7 +1,7 @@
 # The frequency, in Hz, at which the filter will output a position estimate. Note that the filter will not begin
 # computation until it receives at least one message from one of the inputs. It will then run continuously at the
 # frequency specified here, regardless of whether it receives more measurements. Defaults to 30 if unspecified.
-frequency: 30
+frequency: 200
 
 silent_tf_failure: false
 # The period, in seconds, after which we consider a sensor to have timed out. In this event, we carry out a predict
@@ -40,7 +40,7 @@ debug_out_file: /path/to/debug/file.txt
 publish_tf: true
 
 # Whether to publish the acceleration state. Defaults to false if unspecified.
-publish_acceleration: false
+publish_acceleration: true
 
 # REP-105 (http://www.ros.org/reps/rep-0105.html) specifies four principal coordinate frames: base_link, odom, map, and
 # earth. base_link is the coordinate frame that is affixed to the robot. Both odom and map are world-fixed frames.
@@ -99,7 +99,7 @@ odom0_queue_size: 10
 # [ADVANCED] Large messages in ROS can exhibit strange behavior when they arrive at a high frequency. This is a result
 # of Nagle's algorithm. This option tells the ROS subscriber to use the tcpNoDelay option, which disables Nagle's
 # algorithm.
-odom0_nodelay: false
+odom0_nodelay: true
 
 # [ADVANCED] When measuring one pose variable with two sensors, a situation can arise in which both sensors under-
 # report their covariances. This can lead to the filter rapidly jumping back and forth between each measurement as they
@@ -150,21 +150,33 @@ pose0_differential: false
 pose0_relative: false
 pose0_queue_size: 5
 pose0_rejection_threshold: 100  # Note the difference in parameter name
-pose0_nodelay: false
+pose0_nodelay: true
 
-imu0: /mpu6050
+pose1: /uwb_pose
+pose1_config: [true,  true,  false,
+               false, false, false,
+               false, false, false,
+               false, false, false,
+               false, false, false]
+pose1_differential: false
+pose1_relative: false
+pose1_queue_size: 20
+pose1_rejection_threshold: 100  # Note the difference in parameter name
+pose1_nodelay: false
+
+imu0: /uwb_imu
 imu0_config: [false, false, false,
-              false,  false,  false,
+              false, false, true,
               false, false, false,
-              false,  false,  true,
-              false, false, false]
-imu0_nodelay: false
+              false, false, true,
+              true, true, false]
+imu0_nodelay: true
 imu0_differential: false
 imu0_relative: true
-imu0_queue_size: 5
-imu0_pose_rejection_threshold: 0.8                 # Note the difference in parameter names
-imu0_twist_rejection_threshold: 100000                #
-imu0_linear_acceleration_rejection_threshold: 0.8  #
+imu0_queue_size: 60
+# imu0_pose_rejection_threshold: 0.0
+# imu0_angular_velocity_rejection_threshold: 1e9
+# imu0_linear_acceleration_rejection_threshold: 1e9
 
 # # [ADVANCED] Some IMUs automatically remove acceleration due to gravity, and others don't. If yours doesn't, please set
 # # this to true, and *make sure* your data conforms to REP-103, specifically, that the data is in ENU frame.

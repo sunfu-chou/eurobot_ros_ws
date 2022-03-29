@@ -1,5 +1,5 @@
 <launch>
-    <node pkg="nlink_parser" type="linktrack" name="uwb_data_exctractor" output="screen">
+    <node pkg="nlink_parser" type="linktrack" name="uwb_data_exctractor" output="screen" clear_params="true">
         <param name="port_name" value="/dev/SERIAL0" />
         <param name="baud_rate" value="921600" />
 
@@ -7,15 +7,18 @@
         <remap from="nlink_linktrack_tagframe0" to="uwb_state"/>
     </node>
 
-    <!-- <node pkg="eurobot" type="nlink_tagframe_converter" name="nlink_tagframe_converter" output="screen"/>
+    <node pkg="eurobot" type="nlink_tagframe_converter" name="nlink_tagframe_converter" output="screen" clear_params="true">
+        <remap from="uwb_pose" to="uwb_pose_"/>
+        <rosparam file="$(find eurobot)/params/localization/linktrack.yaml" command="load" />
+    </node>
 
-    <node pkg="imu_calib" type="apply_calib" name="apply_calib" output="screen">
+    <node pkg="imu_calib" type="apply_calib" name="apply_calib" output="screen" clear_params="true">
         <param name="calib_file" value="$(find eurobot)/params/imu_calib.yaml"/>
         <param name="calibrate_gyros" value="true"/>
-        <param name="gyro_calib_samples" value="1000"/>
+        <param name="gyro_calib_samples" value="200"/>
         <remap from="raw" to="uwb_imu_raw"/>
         <remap from="corrected" to="uwb_imu"/>
     </node>
 
-    <node name="map_to_odom" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 map base_footprint"/> -->
+    <node name="map_to_odom" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 odom base_footprint"/>
 </launch>
