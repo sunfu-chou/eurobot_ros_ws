@@ -84,6 +84,9 @@ private:
   std::normal_distribution<double> random_vy_;
   std::normal_distribution<double> random_vyaw_;
 
+  ros::Time last_time_;
+  ros::Duration timeout_;
+
   /* ros param */
   bool p_active_;
   bool p_publish_pose_;

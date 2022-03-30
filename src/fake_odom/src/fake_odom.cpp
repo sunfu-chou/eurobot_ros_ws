@@ -54,6 +54,10 @@ bool FakeOdom::updateParams(std_srvs::Empty::Request& req, std_srvs::Empty::Resp
   get_param_ok = nh_local_.param<double>("cov_vy", p_cov_vy_, 1e-9);
   get_param_ok = nh_local_.param<double>("cov_vyaw", p_cov_vyaw_, 1e-9);
 
+  double timeout;
+  get_param_ok = nh_local_.param<double>("timeout", timeout, 0.2);
+  timeout_.fromSec(timeout);
+
   get_param_ok = nh_local_.param<string>("odom_topic", p_odom_topic_, "odom");
   get_param_ok = nh_local_.param<string>("pose_topic", p_pose_topic_, "odom_pose");
   get_param_ok = nh_local_.param<string>("fixed_frame_id", p_fixed_frame_id_, "odom");
@@ -95,6 +99,7 @@ bool FakeOdom::updateParams(std_srvs::Empty::Request& req, std_srvs::Empty::Resp
   if (p_noise_ == false)
   {
     p_cov_vx_ = 0.0;
+    p_cov_vy_ = 0.0;
     p_cov_vyaw_ = 0.0;
   }
 
@@ -124,12 +129,12 @@ bool FakeOdom::updateParams(std_srvs::Empty::Request& req, std_srvs::Empty::Resp
                                   0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
                                  //x,         y,   z,   p,   r,   y
-  output_odom_.twist.covariance = {p_cov_vx_, 0.0, 0.0, 0.0, 0.0, 0.0,
-                                   0.0,       0.0, 0.0, 0.0, 0.0, 0.0,
-                                   0.0,       0.0, 0.0, 0.0, 0.0, 0.0,
-                                   0.0,       0.0, 0.0, 0.0, 0.0, 0.0,
-                                   0.0,       0.0, 0.0, 0.0, 0.0, 0.0,
-                                   0.0,       0.0, 0.0, 0.0, 0.0, p_cov_vyaw_};
+  output_odom_.twist.covariance = {p_cov_vx_, 0.0,       0.0, 0.0, 0.0, 0.0,
+                                   0.0,       p_cov_vy_, 0.0, 0.0, 0.0, 0.0,
+                                   0.0,       0.0,       0.0, 0.0, 0.0, 0.0,
+                                   0.0,       0.0,       0.0, 0.0, 0.0, 0.0,
+                                   0.0,       0.0,       0.0, 0.0, 0.0, 0.0,
+                                   0.0,       0.0,       0.0, 0.0, 0.0, p_cov_vyaw_};
   // clang-format on
 
   publish();
@@ -140,10 +145,14 @@ bool FakeOdom::updateParams(std_srvs::Empty::Request& req, std_srvs::Empty::Resp
 void FakeOdom::twistCallback(const geometry_msgs::Twist::ConstPtr& ptr)
 {
   input_twist_ = *ptr;
+  last_time_ = ros::Time::now();
 }
 
 void FakeOdom::timerCallback(const ros::TimerEvent& e)
 {
+  if(ros::Time::now().toSec() - last_time_.toSec() > timeout_.toSec()){
+    return;
+  }
   updateTwist();
   updatePose(e);
   publish();
