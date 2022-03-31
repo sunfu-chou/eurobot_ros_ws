@@ -22,3 +22,6 @@
 [submodule "src/imu_calib"]
 	path = src/imu_calib
 	url = https://github.com/dpkoch/imu_calib
+[submodule "src/imu_tools"]
+	path = src/imu_tools
+	url = https://github.com/ccny-ros-pkg/imu_tools.git
