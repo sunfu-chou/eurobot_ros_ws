@@ -3,8 +3,8 @@ silent_tf_failure: false
 sensor_timeout: 0.01
 two_d_mode: true
 
-smooth_lagged_data: false
-history_length: 0.5
+smooth_lagged_data: true
+history_length: 0.4
 
 dynamic_process_noise_covariance: false
 
@@ -43,7 +43,7 @@ odom0_nodelay: true
 
 odom0_twist_rejection_threshold: 100
 
-imu0: /uwb_imu
+imu0: /mpu6050
 imu0_config: [false, false, false,
               false, false, false,
               false, false, false,
@@ -54,8 +54,26 @@ imu0_differential: false
 imu0_relative: false
 imu0_nodelay: true
 
-imu0_twist_rejection_threshold: 1000
-imu0_linear_acceleration_rejection_threshold: 1000
+imu0_twist_rejection_threshold: 1000000000000.0
+imu0_linear_acceleration_rejection_threshold: 1000000000000.0
+
+imu0_remove_gravitational_acceleration: false
+
+imu1: /uwb_imu
+imu1_config: [false, false, false,
+              false, false, false,
+              false, false, false,
+              false, false, true,
+              true,  true,  false]
+imu1_queue_size: 40
+imu1_differential: false
+imu1_relative: false
+imu1_nodelay: true
+
+imu1_twist_rejection_threshold: 100.0
+imu1_linear_acceleration_rejection_threshold: 100.0
+
+imu1_remove_gravitational_acceleration: false
 
 pose0: /lidar_bonbonbon
 pose0_config: [true,  true,  false,
@@ -69,17 +87,17 @@ pose0_relative: false
 pose0_nodelay: true
 pose0_rejection_threshold: 100
 
-pose0: /lidar_bonbonbon
-pose0_config: [true,  true,  false,
+pose1: /uwb_pose
+pose1_config: [true,  true,  false,
                false, false, false,
                false, false, false,
                false, false, false,
                false, false, false]
-pose0_queue_size: 40
-pose0_differential: false
-pose0_relative: false
-pose0_nodelay: true
-pose0_rejection_threshold: 10
+pose1_queue_size: 40
+pose1_differential: false
+pose1_relative: false
+pose1_nodelay: true
+pose1_rejection_threshold: 10
 
 initial_state: [0.5,  0.5,  0.0,
                 0.0,  0.0,  1.6,

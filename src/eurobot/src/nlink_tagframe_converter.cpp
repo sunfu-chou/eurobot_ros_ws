@@ -75,8 +75,8 @@ void tagCallback(const nlink_parser::LinktrackTagframe0::ConstPtr& ptr)
   output_pose.pose.pose.position.x = input_tag.pos_3d[0];
   output_pose.pose.pose.position.y = input_tag.pos_3d[1];
   output_pose.pose.pose.position.z = input_tag.pos_3d[2];
-  output_pose.pose.pose.orientation.w = 1.0;
-  
+  output_pose.pose.pose.orientation = output_imu.orientation;
+
   for (int i = 0; i < p_pose_cov.size(); i++)
   {
     output_pose.pose.covariance[i] = p_pose_cov[i];
