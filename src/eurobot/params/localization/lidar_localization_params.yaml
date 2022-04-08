@@ -4,7 +4,7 @@ cov_x: 0.1
 cov_y: 0.1
 cov_yaw: 0.1
 
-beacon_1_x: 1
+beacon_1_x: 1.2
 beacon_1_y: -0.092
   
 beacon_2_x: 0.055

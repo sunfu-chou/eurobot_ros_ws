@@ -1,8 +1,5 @@
 <launch>
   <param name="/use_sim_time" value="true"/>
 
-  <node name="rosbag" pkg="rosbag" type="play" args="-l -q --clock $(find eurobot)/../../rosbag/2022-02-18-22-31-24.bag --topics /scan /odom /tf /tf_static"/>
-  <!-- rviz -->
-	<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d /$(find eurobot)/../../rviz/lidar.rviz"/>
-  <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/> -->
+  <node name="rosbag" pkg="rosbag" type="play" args="-l -q --clock $(find eurobot)/../../rosbag/sunfu_20220405_beacon.bag --topics /scan /odom /tf /tf_static"/>
 </launch>
