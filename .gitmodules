@@ -12,7 +12,7 @@
 	url = https://github.com/YDLIDAR/YDLidar-SDK.git
 [submodule "src/rplidar_ros"]
 	path = src/rplidar_ros
-	url = https://github.com/Slamtec/rplidar_ros
+	url = https://github.com/Slamtec/rplidar_ros.git
 [submodule "src/nlink_parser"]
 	path = src/nlink_parser
 	url = https://github.com/nooploop-dev/nlink_parser.git
@@ -21,7 +21,7 @@
 	url = https://github.com/nooploop-dev/serial.git
 [submodule "src/imu_calib"]
 	path = src/imu_calib
-	url = https://github.com/dpkoch/imu_calib
+	url = https://github.com/sunfu-chou/imu_tools.git
 [submodule "src/imu_tools"]
 	path = src/imu_tools
 	url = https://github.com/ccny-ros-pkg/imu_tools.git
