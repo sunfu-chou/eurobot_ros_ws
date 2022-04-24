@@ -25,3 +25,9 @@
 [submodule "src/imu_tools"]
 	path = src/imu_tools
 	url = https://github.com/sunfu-chou/imu_tools.git
+[submodule "src/rosserial"]
+	path = src/rosserial
+	url = https://github.com/sunfu-chou/rosserial.git
+[submodule "src/rosserial_stm32"]
+	path = src/rosserial_stm32
+	url = https://github.com/sunfu-chou/rosserial_stm32.git
