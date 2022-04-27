@@ -1,0 +1,39 @@
+#! /usr/bin/python3
+
+import rosbag
+from argparse import ArgumentParser
+from matplotlib import pyplot
+from mpl_toolkits.mplot3d import Axes3D
+
+parser = ArgumentParser()
+parser.add_argument("bag", metavar="FILE", type=str, help="input bag file")
+parser.add_argument("outfile", metavar="OUTFILE", type=str, help="output txt file", nargs="?", default="./mag_out.txt")
+parser.add_argument("--plots", type=bool, help="Show plots if matplotlib available.")
+args = parser.parse_args()
+
+if not args.plots:
+    pyplot = None
+
+bag = rosbag.Bag(args.bag)
+vecs = []
+
+print(bag.get_type_and_topic_info())
+
+for topic, msg, time in bag.read_messages(topics="/mpu9250_mag_raw"):
+    vecs.append((float(msg.magnetic_field.x), float(msg.magnetic_field.y), float(msg.magnetic_field.z)))
+
+x, y, z = zip(*vecs)
+
+with open(args.outfile, "w") as f:
+    for mag in vecs:
+        f.write("%f %f %f\n" % (mag[0], mag[1], mag[2]))
+f.close()
+
+print(args.outfile)
+
+if pyplot:
+    fig = pyplot.figure()
+    ax1 = fig.add_subplot(111, projection="3d")
+    ax1.view_init(elev=80, azim=5)
+    ax1.scatter(x, y, z)
+    pyplot.show()
