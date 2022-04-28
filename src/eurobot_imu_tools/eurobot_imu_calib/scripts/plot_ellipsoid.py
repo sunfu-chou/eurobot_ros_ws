@@ -25,9 +25,10 @@ if __name__ == "__main__":
     # http://www.cs.brandeis.edu/~cs155/Lecture_07_6.pdf
     # affine transformation from ellipsoid to sphere (translation excluded)
     TR = evecs.dot(D).dot(evecs.T)
-    # a = np.array([-0.000003, 0.00002, 0.00001])
+    a = np.array([0.00004, 0.000008, -0.000012])
     new = TR.dot(data_centered.T).T
-    # b = TR.dot(a.T).TR
+    aa = a - center.T
+    b = TR.dot((aa.T)).T
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
@@ -38,9 +39,11 @@ if __name__ == "__main__":
     #     for point in np.diag(direction * np.max(data) * np.array([1, 1, 1])):
     #         ax.plot([point[0]], [point[1]], [point[2]], 'w')
 
-    ax.scatter(data_centered[0:10,0], data_centered[0:10,1], data_centered[0:10,2], marker='o', color='g')
+    ax.scatter(data[0:10, 0], data[0:10, 1], data[0:10, 2], marker="o", color="g")
+    ax.scatter(a[0], a[1], a[2], marker="o", color="blue")
     # ax.scatter(data_centered_regularized[:, 0], data_centered_regularized[:, 1], data_centered_regularized[:, 2], marker="o", color="b")
-    ax.scatter(new[0:10,0], new[0:10,1], new[0:10,2], marker='o', color='r')
+    ax.scatter(new[0:10, 0], new[0:10, 1], new[0:10, 2], marker="o", color="r")
+    ax.scatter(b[0], b[1], b[2], marker="o", color="yellow")
 
     ellipsoid_plot([0, 0, 0], radii, evecs, ax=ax, plot_axes=True, cage_color="g")
     ellipsoid_plot([0, 0, 0], [r, r, r], evecs, ax=ax, plot_axes=True, cage_color="orange")
