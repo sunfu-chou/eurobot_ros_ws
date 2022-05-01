@@ -14,7 +14,7 @@ class MagCalib:
         self.mag_pub = rospy.Publisher("mpu9250_mag", MagneticField, queue_size=10)
         self.service_start_calib = rospy.Service("~start_calib", Empty, self.StartCalibServer)
         self.states = ["Idle", "Collect Data", "Apply Calib"]
-        self.curr_state = "Collect Data"
+        self.curr_state = "Idle"
         self.sample_amount = 3000
         self.sample_counter = 0
         self.mag_raw_data = []
@@ -28,19 +28,15 @@ class MagCalib:
 
     def MagCallback(self, msg: MagneticField):
 
-        self.mag_raw_data =[msg.magnetic_field.x, msg.magnetic_field.y, msg.magnetic_field.z]
+        self.mag_raw_data = [msg.magnetic_field.x, msg.magnetic_field.y, msg.magnetic_field.z]
 
         if self.curr_state == "Idle":
+            rospy.loginfo_throttle(5.0, "Waiting for service call")
             return
 
         elif self.curr_state == "Collect Data":
             if self.sample_counter == 0:
                 rospy.loginfo("Getting Mag Data")
-                cmd_vel = Twist()
-                cmd_vel.linear.x = 0
-                cmd_vel.linear.y = 0
-                cmd_vel.angular.z = 0.5
-                self.cmd_vel_pub.publish(cmd_vel)
 
             if self.sample_counter >= self.sample_amount:
                 rospy.loginfo("Stop Rotating and Calculate params")
@@ -49,25 +45,33 @@ class MagCalib:
                 cmd_vel.linear.y = 0
                 cmd_vel.angular.z = 0
                 self.cmd_vel_pub.publish(cmd_vel)
-                # try:
-                self.DoCalib()
-                # except:
-                # rospy.logwarn("Cannot Solve Mag Calibration Matrix")
+                try:
+                    self.DoCalib()
+                except np.linalg.LinAlgError as e:
+                    rospy.logerr(str(e))
+                    rospy.logwarn("Cannot Solve Mag Calibration Matrix")
+                    while not rospy.is_shutdown():
+                        pass
 
                 self.curr_state = "Apply Calib"
-                rospy.loginfo("Apply Calib")
+                rospy.loginfo("Ready to Apply Calib")
+                rospy.loginfo(self.center)
+                rospy.loginfo(self.radii)
+                rospy.loginfo(self.evecs)
+                rospy.loginfo(self.TR)
                 return
 
+            curr_progress = int(float(self.sample_counter / self.sample_amount) * 100.0)
+            rospy.loginfo_throttle(2.0, f"Collecting Data : {curr_progress:02d} %")
+            cmd_vel = Twist()
+            cmd_vel.linear.x = 0
+            cmd_vel.linear.y = 0
+            cmd_vel.angular.z = 0.5
+            self.cmd_vel_pub.publish(cmd_vel)
             self.sample_counter += 1
             self.mag_calib_data.append(self.mag_raw_data)
 
         elif self.curr_state == "Apply Calib":
-            print(self.center)
-            print(self.radii)
-            print(self.evecs)
-            print(self.TR)
-            while not rospy.is_shutdown():
-                pass
             mag = self.TR.dot(self.mag_raw_data - self.center.T).T
             self.output_mag.header = msg.header
             self.output_mag.magnetic_field.x = mag[0]
@@ -78,9 +82,8 @@ class MagCalib:
 
     def StartCalibServer(self, req: EmptyRequest):
         rospy.loginfo("now state is %s" % (self.curr_state))
-        if self.curr_state == "Idle":
-            self.curr_state = "Collect Data"
-            rospy.loginfo("Start Collect Mag Data: %s" % (self.mag_sub.name))
+        self.curr_state = "Collect Data"
+        rospy.loginfo("Start Collect Mag Data: %s" % (self.mag_sub.name))
         return EmptyResponse()
 
     def DoCalib(self):
@@ -119,6 +122,9 @@ class MagCalib:
         self.v = v
 
         self.CalcTansformMatrix()
+
+    def ellipse_fit(self):
+        pass
 
     def CalcTansformMatrix(self):
         a, b, c = self.radii
