@@ -81,8 +81,12 @@ void tagCallback(const nlink_parser::LinktrackTagframe0::ConstPtr& ptr)
   {
     output_pose.pose.covariance[i] = p_pose_cov[i];
   }
+
+  if (!(ptr->dis_arr[0] < 0.001 && ptr->dis_arr[2] < 0.001 && ptr->dis_arr[2] < 0.001))
+  {
+    pub_pose.publish(output_pose);
+  }
   pub_imu.publish(output_imu);
-  pub_pose.publish(output_pose);
 }
 
 bool updateParams(std_srvs::Empty::Request& req, std_srvs::Empty::Response& res)
