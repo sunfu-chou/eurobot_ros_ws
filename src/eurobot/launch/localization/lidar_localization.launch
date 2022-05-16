@@ -19,8 +19,17 @@
     </node>
 
     <node name="area_obstacles_extractor" pkg="lidar_localization" type="area_obstacles_extractor_node" output="screen" clear_params="true">
+        <param name="active" value="true"/>
+        <param name="x_min_range" value="0.0"/>
+        <param name="x_max_range" value="2.0"/>
+        <param name="y_min_range" value="0.0"/>
+        <param name="y_max_range" value="3.0"/>
+        <param name="avoid_min_distance" value="0.1"/>
+        <param name="avoid_max_distance" value="0.5"/>
+        <rosparam param="excluded_x">[0.5, 0.4, 0.6]</rosparam>
+        <rosparam param="excluded_y">[1.2, 0.8, 2.2]</rosparam>
+        <rosparam param="excluded_radius">[0.25, 0.35, 0.12]</rosparam>
         <remap from="obstacle_array" to="move_base/TebLocalPlannerROS/obstacles"/>
         <remap from="robot_pose" to="global_filter"/>
-        <param name="avoid_distance" value="1.0"/>
     </node>
 </launch>
