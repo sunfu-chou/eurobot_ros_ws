@@ -9,7 +9,6 @@ from ellipsoid_fit import ellipsoid_fit, ellipsoid_plot, data_regularize
 if __name__ == "__main__":
 
     data = np.loadtxt("0427.txt")
-    print(type(data))
     data2 = data_regularize(data, divs=8)
 
     center, evecs, radii, v = ellipsoid_fit(data2)
@@ -39,11 +38,11 @@ if __name__ == "__main__":
     #     for point in np.diag(direction * np.max(data) * np.array([1, 1, 1])):
     #         ax.plot([point[0]], [point[1]], [point[2]], 'w')
 
-    ax.scatter(data[0:10, 0], data[0:10, 1], data[0:10, 2], marker="o", color="g")
-    ax.scatter(a[0], a[1], a[2], marker="o", color="blue")
-    # ax.scatter(data_centered_regularized[:, 0], data_centered_regularized[:, 1], data_centered_regularized[:, 2], marker="o", color="b")
-    ax.scatter(new[0:10, 0], new[0:10, 1], new[0:10, 2], marker="o", color="r")
-    ax.scatter(b[0], b[1], b[2], marker="o", color="yellow")
+    # ax.scatter(data[0:10, 0], data[0:10, 1], data[0:10, 2], marker="o", color="g")
+    # ax.scatter(a[0], a[1], a[2], marker="o", color="blue")
+    ax.scatter(data_centered_regularized[:, 0], data_centered_regularized[:, 1], data_centered_regularized[:, 2], marker="o", color="b")
+    # ax.scatter(new[0:10, 0], new[0:10, 1], new[0:10, 2], marker="o", color="r")
+    # ax.scatter(b[0], b[1], b[2], marker="o", color="yellow")
 
     ellipsoid_plot([0, 0, 0], radii, evecs, ax=ax, plot_axes=True, cage_color="g")
     ellipsoid_plot([0, 0, 0], [r, r, r], evecs, ax=ax, plot_axes=True, cage_color="orange")
