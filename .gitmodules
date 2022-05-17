@@ -21,7 +21,7 @@
 	url = https://github.com/nooploop-dev/serial.git
 [submodule "src/imu_calib"]
 	path = src/imu_calib
-	url = https://github.com/dpkoch/imu_calib.git
+	url = https://github.com/sunfu-chou/imu_calib.git
 [submodule "src/imu_tools"]
 	path = src/imu_tools
 	url = https://github.com/sunfu-chou/imu_tools.git
