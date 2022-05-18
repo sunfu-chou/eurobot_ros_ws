@@ -5,7 +5,6 @@
       <param name="publish_pose" value="false"/>
       <param name="publish_odom" value="true"/>
       <param name="publish_tf" value="true"/>
-      <param name="noise" value="true"/>
 
       <param name="frequency" value="30"/>
       <param name="init_pose_x" value="0.81"/>

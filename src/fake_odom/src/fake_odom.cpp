@@ -27,7 +27,7 @@
 using namespace std;
 using namespace fake_odom;
 
-FakeOdom::FakeOdom(ros::NodeHandle& nh, ros::NodeHandle& nh_local) : nh_(nh), nh_local_(nh_local), random_vx_(0.0, 0.0), random_vy_(0.0, 0.0), random_vyaw_(0.0, 0.0)
+FakeOdom::FakeOdom(ros::NodeHandle& nh, ros::NodeHandle& nh_local) : nh_(nh), nh_local_(nh_local)
 {
   timer_ = nh_.createTimer(ros::Duration(1.0), &FakeOdom::timerCallback, this, false, false);
   initialize();
@@ -43,7 +43,6 @@ bool FakeOdom::updateParams(std_srvs::Empty::Request& req, std_srvs::Empty::Resp
   get_param_ok = nh_local_.param<bool>("publish_pose", p_publish_pose_, true);
   get_param_ok = nh_local_.param<bool>("publish_odom", p_publish_odom_, true);
   get_param_ok = nh_local_.param<bool>("publish_tf", p_publish_tf_, true);
-  get_param_ok = nh_local_.param<bool>("noise", p_noise_, false);
 
   get_param_ok = nh_local_.param<double>("frequency", p_frequency_, 30);
   get_param_ok = nh_local_.param<double>("init_pose_x", p_init_pose_x, 0.0);
@@ -95,22 +94,6 @@ bool FakeOdom::updateParams(std_srvs::Empty::Request& req, std_srvs::Empty::Resp
     }
   }
 
-  /* noise param */
-  if (p_noise_ == false)
-  {
-    p_cov_vx_ = 0.0;
-    p_cov_vy_ = 0.0;
-    p_cov_vyaw_ = 0.0;
-  }
-
-  std::normal_distribution<double>::param_type setparam_vx(0, sqrt(p_cov_vx_));
-  random_vx_.param(setparam_vx);
-  std::normal_distribution<double>::param_type setparam_vy(0, sqrt(p_cov_vy_));
-  random_vy_.param(setparam_vy);
-
-  std::normal_distribution<double>::param_type setparam_vyaw(0, sqrt(p_cov_vyaw_));
-  random_vyaw_.param(setparam_vyaw);
-
   /* init state param */
   output_odom_.pose.pose.position.x = p_init_pose_x;
   output_odom_.pose.pose.position.y = p_init_pose_y;
@@ -160,9 +143,9 @@ void FakeOdom::timerCallback(const ros::TimerEvent& e)
 
 void FakeOdom::updateTwist()
 {
-  twist_.linear.x = input_twist_.linear.x + random_vx_(_re_);
-  twist_.linear.y = input_twist_.linear.y + random_vy_(_re_);
-  twist_.angular.z = input_twist_.angular.z + random_vyaw_(_re_);
+  twist_.linear.x = input_twist_.linear.x;
+  twist_.linear.y = input_twist_.linear.y;
+  twist_.angular.z = input_twist_.angular.z;
 
   output_odom_.twist.twist = twist_;
 }

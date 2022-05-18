@@ -78,12 +78,6 @@ private:
   geometry_msgs::Twist twist_;
   nav_msgs::Odometry output_odom_;
 
-  /* private variables */
-  std::default_random_engine _re_;
-  std::normal_distribution<double> random_vx_;
-  std::normal_distribution<double> random_vy_;
-  std::normal_distribution<double> random_vyaw_;
-
   ros::Time last_time_;
   ros::Duration timeout_;
 
@@ -92,7 +86,6 @@ private:
   bool p_publish_pose_;
   bool p_publish_odom_;
   bool p_publish_tf_;
-  bool p_noise_;
 
   double p_frequency_;
   double p_init_pose_x;
